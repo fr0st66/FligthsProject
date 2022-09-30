@@ -1,0 +1,2 @@
+# FligthsProject
+Python, Django, React
