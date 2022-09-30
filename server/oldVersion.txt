@@ -1,0 +1,389 @@
+old version Views
+
+USER- 
+# @api_view(['GET','POST','DELETE','PUT'])
+# def user (request,id=0):
+#     if request.method == 'GET': 
+#         if int(id) > 0:
+#             try:
+#               user= Users.objects.get(id=id)
+#               serializer=UserSerializer(user)
+#             except:
+#                 return JsonResponse ({"ID number does not exist":"error"})
+#             return JsonResponse (serializer.data, safe=False) 
+#         else: 
+#             if id == 0:
+#                 users= Users.objects.all()
+#                 serializer=UserSerializer(users, many=True)
+#                 return JsonResponse (serializer.data, safe=False)
+#             return JsonResponse ({"ID number does not exist":"error"})
+
+#     if request.method == 'POST':
+#           print(request.data['username'])
+#           print(request.data['email'])
+#           serializer=UserSerializer(data=request.data)
+#           if serializer.is_valid():
+#               serializer.save()
+#               return JsonResponse({'success':'DONE'})
+#           return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+#     if request.method == 'DELETE':
+#         temp= Users.objects.get(id = id)
+#         temp.delete()
+#         return JsonResponse({'DELETE': id})
+
+#     if request.method == 'PUT':
+#         changing=Users.objects.get(id = id)
+#         serializer = UserSerializer(changing, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class User (models.Model):
+#     username = models.CharField(unique=True, max_length=100)  
+#     password = models.CharField(max_length=50)    
+#     email = models.EmailField(unique=True)  
+#     # need to be a default (user role==customer ) 
+#     user_role = models.ForeignKey(User_Roles, on_delete=models.CASCADE, default="Customers") 
+#     def __str__(self):
+#         return self.username  
+# _________________________________________________________________________________________________________
+CUSTOMER
+
+# @api_view(['GET','POST','DELETE','PUT'])
+# def customer (request,id=0):
+#     if request.method == 'GET': 
+#         if int(id) > 0: 
+#             try:
+#               customer= Customers.objects.get(id=id)
+#               serializer=CustomerSerializer(customer)
+#             except:
+#                 return JsonResponse ({"ID number does not exist":"Error"})
+#             return JsonResponse (serializer.data, safe=False) 
+#         else: 
+#             if id == 0:
+#                 customers= Customers.objects.all()
+#                 serializer=CustomerSerializer(customers, many=True)
+#                 return JsonResponse (serializer.data, safe=False)
+#             return JsonResponse ({"ID number does not exist":"Error"})
+
+
+#     if request.method == 'POST':
+#           print (request.data['first_name'])
+#           print(request.data['last_name'])
+#           print(request.data['address'])
+#           print(request.data['phone_no'])
+#           print(request.data['credit_card'])
+#           serializer=CustomerSerializer(data=request.data)
+#           if serializer.is_valid():
+#               serializer.save()
+#               return JsonResponse({'success':'DONE'})
+#           return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+#     if request.method == 'DELETE':
+#         temp= Customers.objects.get(id = id)
+#         temp.delete()
+#         return JsonResponse({'DELETE': id})
+
+#     if request.method == 'PUT':
+#         changing=Customers.objects.get(id = id)
+#         serializer = CustomerSerializer(changing, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+AIRLINES COMPANIES
+# permision - Super user
+# @api_view(['POST'])
+# @permission_classes([IsAdminUser])
+# def addAirCompany(request):
+#     if not request.user.is_superuser :
+#         return Response({'detail': 'Not Authorized  to create '},
+#             status=status.HTTP_401_UNAUTHORIZED)
+#     request.data['name']
+#     serializer=Airline_CompanySerializer(data=request.data)
+#     if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+
+# @api_view(['GET','POST','DELETE','PUT'])
+# def getAirlineCompany (request,id=0):
+#     if request.method == 'GET': 
+#         if int(id) > 0:
+#             try:
+#               airlineCompany= Airline_Companies.objects.get(id=id)
+#               serializer=Airline_CompanySerializer(airlineCompany)
+#             except:
+#                 message = {"detail":"Air Company with this ID not exist"}
+#                 return Response(message,status=status.HTTP_400_BAD_REQUEST)
+#             return Response (serializer.data) 
+#         else: 
+#             if id == 0:
+#                 airlineCompanies= Airline_Companies.objects.all()
+#                 serializer=Airline_CompanySerializer(airlineCompanies, many=True)
+#                 return JsonResponse (serializer.data, safe=False)
+#             return JsonResponse ({"ID number does not exist":"error"})
+
+#     if request.method == 'POST':
+#           print(request.data['name'])
+#           serializer=Airline_CompanySerializer(data=request.data)
+#           if serializer.is_valid():
+#               serializer.save()
+#               return JsonResponse({'success':'DONE'})
+#           return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+#     if request.method == 'DELETE':
+#         temp= Airline_Companies.objects.get(id = id)
+#         temp.delete()
+#         return JsonResponse({'DELETE': id})
+
+#     if request.method == 'PUT':
+#         changing=Airline_Companies.objects.get(id = id)
+#         serializer = Airline_CompanySerializer(changing, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+FLIGHT
+# permision - Staff Airline Companys Users
+# @api_view(['POST'])
+# @permission_classes([IsAdminUser])
+# def createFlight(request):
+#    request.data['departure_time'],
+#    request.data['landing_time'],
+#    request.data['remaining_tickets']
+#    serializer=FlightSerializer(data=request.data)
+#    if serializer.is_valid():
+#             serializer.save()
+#             return Response({'success':'you create a new flight'})
+#    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+
+# @api_view(['GET','POST','DELETE','PUT'])
+# def flight (request,id=0):
+#     if request.method == 'GET': 
+#         if int(id) > 0:
+#             try:
+#               flight= Flights.objects.get(id=id)
+#               serializer=FlightSerializer(flight)
+#             except:
+#                 return JsonResponse ({"ID number does not exist":"error"})
+#             return JsonResponse (serializer.data, safe=False) 
+#         else: 
+#             if id == 0:
+#                 flights= Flights.objects.all()
+#                 serializer=FlightSerializer(flights, many=True)
+#                 return JsonResponse (serializer.data, safe=False)
+#             return JsonResponse ({"ID number does not exist":"error"})
+
+#     if request.method == 'POST':
+#           print(request.data['departure_time'])
+#           print(request.data['landing_time'])
+#           print(request.data['remaining_tickets'])
+#           serializer=FlightSerializer(data=request.data)
+#           if serializer.is_valid():
+#               serializer.save()
+#               return JsonResponse({'success':'DONE'})
+#           return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)   
+
+#     if request.method == 'DELETE':
+#         temp= Flights.objects.get(id = id)
+#         temp.delete()
+#         return JsonResponse({'DELETE': id})
+
+#     if request.method == 'PUT':
+#         changing=Flights.objects.get(id = id)
+#         serializer = FlightSerializer(changing, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JsonResponse(serializer.data)
+#         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+COUNTRY
+@api_view(['GET'])
+def getCountry (request,id=0):
+     if request.method == 'GET': 
+        if int(id) > 0: 
+            try:
+              country= Countries.objects.get(id=id)
+              serializer=CountrySerializer(country)
+            except:
+                message = {"detail":"Country with this ID not exist"}
+                return Response(message,status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data) 
+        else: 
+            if id == 0:
+                countries= Countries.objects.all()
+                serializer=CountrySerializer(countries, many=True)
+                return Response(serializer.data)
+  
+USER ROLE
+
+@api_view(['GET'])
+def userRole (request,id=0):
+    if request.method == 'GET': 
+        if int(id) > 0:
+            try:
+              userRole= User_Roles.objects.get(id=id)
+              serializer=User_RoleSerializer(userRole)
+            except:
+                return JsonResponse ({"ID number does not exist":"error"})
+            return JsonResponse (serializer.data, safe=False) 
+        else: 
+            if id == 0:
+                userRole= User_Roles.objects.all()
+                serializer=User_RoleSerializer(userRole, many=True)
+                return JsonResponse (serializer.data, safe=False)
+            return JsonResponse ({"ID number does not exist":"error"})
+
+ADMINISTRATOR
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def administrator (request,id=-1):
+    if request.method == 'GET': 
+        if int(id) > 0:
+            try:
+              administrator= Adminstrators.objects.get(id=id)
+              serializer=AdministratorSerializer(administrator)
+            except:
+                return JsonResponse ({"ID number does not exist":"error"})
+            return JsonResponse (serializer.data, safe=False) 
+        else: 
+            if id == 0:
+                administrators= Adminstrators.objects.all()
+                serializer=AdministratorSerializer(administrators, many=True)
+                return JsonResponse (serializer.data, safe=False)
+            return JsonResponse ({"ID number does not exist":"error"})
+
+ # @api_view(['GET','POST','DELETE'])
+# def ticket (request,id=0):
+#     if request.method == 'GET': 
+#         if int(id) > 0:
+#             try:
+#               ticket= Tickets.objects.get(id=id)
+#               serializer=TicketsSerializer(ticket)
+#             except:
+#                 return JsonResponse ({"ID number does not exist":"error"})
+#             return JsonResponse (serializer.data, safe=False) 
+#         else: 
+#             if id == 0:
+#                 tickets= Tickets.objects.all()
+#                 serializer=TicketsSerializer(tickets, many=True)
+#                 return JsonResponse (serializer.data, safe=False)
+#             return JsonResponse ({"ID number does not exist":"error"})
+
+#     if request.method == 'POST':
+#           serializer=TicketsSerializer(data=request.data)
+#           if serializer.is_valid():
+#               serializer.save()
+#               return JsonResponse({'success':'DONE'})
+#           return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)      
+
+#     if request.method == 'DELETE':
+#         temp= Tickets.objects.get(id = id)
+#         temp.delete()
+#         return JsonResponse({'DELETE': id})
+           
+
+
+#  (4 user role)__________________________________________________________________________
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUserRole(request):
+    userRole = User_Roles.objects.all()
+    serializer = User_RoleSerializer(userRole, many=True)
+    return Response(serializer.data)
+
+
+# (8 Administrators)____________________________________________________________________
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getAdministrators(request):
+    administrators = Adminstrators.objects.all()
+    serializer = AdministratorSerializer(administrators, many=True)
+    return Response(serializer.data)
+
+
+urls- user
+from django.urls import path
+from flightApp.views import userViews as views
+
+
+urlpatterns = [
+    path('register/',views.registerUser,name='register'),
+    path('',views.getUsers,name="users"),
+    path('profile/',views.getUser,name="user_profile"),
+    path('profile/update/',views.updateUser,name="user_profile_update"),
+    path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('<id>/',views.getUserById,name="get_user"),
+    path('update/<id>/',views.updateUser,name="updateUser"),
+    path('delete/<id>/',views.deleteUser,name="deleteUser"),
+]
+
+urls- order
+
+from django.urls import path
+from flightApp.views import orderViews as views
+
+urlpatterns = [
+    path('',views.getAllOrders,name="allorders"),
+    path('add/',views.addOrderTicket,name="orders-add"),
+    path('myorders/',views.getMyOrder,name="myorders"),  
+    
+]
+
+ursl- flight
+from django.urls import path
+from flightApp.views import baseViews as views
+
+
+urlpatterns = [
+    path('',views.getAllFlights,name="flights"),
+    path('create/',views.createFlight,name="createFlight"),
+    path('<id>/',views.getFlight,name="flight"),
+    # path('update/<str:pk>/',views.updateFlight,name="updateFlight"),
+    path('delete/<id>/',views.deleteFlight,name="deleteFlight"),
+    path('country', views.getAllCountries, name="countries"),
+    path('country/<id>/', views.getCountry, name="country"),
+    path('airline', views.getAirCompany, name="airCompany")
+]
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getMyOrderTickets(request):
+    user =request.user
+    order_id = user.id
+    tickets = order_id.order_set.all()
+    serializer = TicketsSerializer(tickets, many=True)
+    return Response(serializer.data)   
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getTicketById(request, id):
+    ticket = Tickets.objects.get(_id=id)
+    serializer = TicketsSerializer(ticket, many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getAllOrdersTickets(request):
+    orders = Tickets.objects.all()
+    serializer = TicketsSerializer(orders, many=True)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deleteMyTicket(request,id):
+    temp = Tickets.objects.get(id=id)
+    temp.delete()
+    return Response("Your ticket was deleted")
+
+
